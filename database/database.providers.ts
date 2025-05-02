@@ -1,5 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import Course from "src/course/entities/course.entity";
+import StudentCourse from "src/student/entities/student-course.entity";
+import Student from "src/student/entities/student.entity";
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -16,7 +18,7 @@ export const databaseProviders = [
                 password: process.env.DB_PASSWORD || "1234",
                 database: process.env.DB_NAME || "postgres",
             });
-            sequelize.addModels([Course]);
+            sequelize.addModels([Course, Student, StudentCourse]);
             await sequelize.sync();
             return sequelize;
         },

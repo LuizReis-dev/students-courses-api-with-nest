@@ -7,17 +7,17 @@ import {
     AutoIncrement,
     CreatedAt,
     DeletedAt,
-    BelongsToMany,
+    BelongsToMany
 } from "sequelize-typescript";
-import StudentCourse from "src/student/entities/student-course.entity";
-import Student from "src/student/entities/student.entity";
+import Course from "src/course/entities/course.entity";
+import StudentCourse from "./student-course.entity";
 
 @Table({
-    tableName: "tb_courses",
-    modelName: "Course",
+    tableName: "tb_students",
+    modelName: "Student",
     timestamps: true
 })
-export default class Course extends Model {
+export default class Student extends Model {
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)
@@ -26,15 +26,15 @@ export default class Course extends Model {
     @Column(DataType.STRING)
     declare name: string;
 
-    @Column(DataType.STRING)
-    declare description: string;
+    @Column(DataType.DATE)
+    declare birthdate: Date;
 
     @CreatedAt
     declare createdAt: Date;
 
     @DeletedAt
     declare deletedAt: Date;
-    
-    @BelongsToMany(() => Student, () => StudentCourse)
-    declare students?: Student[];
+
+    @BelongsToMany(() => Course, () => StudentCourse)
+    declare courses?: Course[];
 }
